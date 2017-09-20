@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+}
+
+.container {
+  margin: auto;
+}
+
+.control-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+}
+
+.control-container > * {
+  margin: 1em 0;
+}
+
+.swatch-container {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 30vh;
+}
+
+.swatch {
+  flex-grow: 1;
+  display: inline-block;
+  height: 0;
+  transition: height 2s;
+}
+
+.color-input {
+  box-sizing : border-box;
+  min-width: 20em;
+  width: 50%;
+  display: block;
+  outline: none;
+  height: 10em;
+  font-size: 1rem;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Color Sort</title>
+  <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div id="swatch-container" class="swatch-container"></div>
+
+    <div class="control-container">
+      <div>
+        <div>
+          <label for="sort-option">Sort by</label>
+          <select name="sort-option" id="sort-option">
+            <option value="hue-saturation-lightness">Hue-Saturation-Lightness</option>
+            <option value="hue-lightness-saturation">Hue-Lightness-Saturation</option>
+            <option value="saturation-hue-lightness">Saturation-Hue-Lightness</option>
+            <option value="saturation-lightness-hue">Saturation-Lightness-Hue</option>
+            <option value="lightness-hue-saturation">Lightness-Hue-Saturation</option>
+            <option value="lightness-saturation-hue">Lightness-Saturation-Hue</option>
+            <option value="red-green-blue">Red-Green-Blue</option>
+            <option value="red-blue-green">Red-Blue-Green</option>
+            <option value="blue-red-green">Blue-Red-Green</option>
+            <option value="blue-green-red">Blue-Green-Red</option>
+            <option value="green-blue-red">Green-Blue-Red</option>
+            <option value="green-red-blue">Green-Red-Blue</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="format-option">Format to</label>
+          <select name="format-option" id="format-option">
+            <option value="hex">Hexidecimal</option>
+            <option value="rgb">Red-Green-Blue</option>
+            <option value="hsl">Hue-Saturation-Lightness</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="reverse">Reverse Order</label>
+          <input type="checkbox" id="reverse" name="reverse">
+        </div>
+
+        <button id="submit" type="button">Sort</button>
+      </div>
+      <textarea name="color-input" id="color-input" class="color-input" placeholder="Add your hex, rga, or hsl colors here..."></textarea>
+    </div>
+  </div>
+</body>
+
+<script src="color-conversion.js"></script>
+<script src="main.js"></script>
+</html>
