@@ -45,12 +45,14 @@ function sortColors() {
   }
 
   const boxSize = determineSwatchSize(colors.length);
-  const colorElements = colors
-    .map(elem => {return `<div class="swatch" style="background: ${elem.hex}; width: ${boxSize[0]}%; height: ${boxSize[1]}vh" title="${elem[format]}"></div>`})
-    .join('');
+  const colorElements = colors.map(elem => {
+    return `<div class="swatch" style="background: ${elem.hex}; width: ${boxSize[0]}%; height: ${boxSize[1]}vh" title="${elem[format]}"></div>`
+  }).join('');
 
   swatchContainer.innerHTML = colorElements;
-  input.value = colors.map(el => { return el[format] }).join(', ');
+  input.value = colors.map(el => {
+    return el[format]
+  }).join(', ');
 
   return colors;
 }
@@ -66,12 +68,17 @@ function determineSwatchSize(count) {
     size = windowWidth / cubePerLine - 10;
   }
 
-  return [100 / cubePerLine, 100 / Math.ceil(count / cubePerLine)];
+  return [
+    100 / cubePerLine,
+    100 / Math.ceil(count / cubePerLine)
+  ];
 }
 
 function getSortMethod(sort) {
   const split = sort.split('-');
-  return (e1, e2) => { return e1[split[0]] - e2[split[0]] || e1[split[1]] - e2[split[1]] || e1[split[2]] - e2[split[2]] };
+  return (e1, e2) => {
+    return e1[split[0]] - e2[split[0]] || e1[split[1]] - e2[split[1]] || e1[split[2]] - e2[split[2]]
+  };
 }
 
 function createColorArray(hex, rgb, hsl) {
@@ -89,8 +96,6 @@ function createColorArray(hex, rgb, hsl) {
     result.push(createColorFromHsl(elem));
   });
 
-  // console.log(result);
-  // console.log(JSON.stringify(result));
   return result;
 }
 
