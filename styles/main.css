@@ -1,0 +1,80 @@
+/*
+#54494B
+#F1F7ED
+#91C7B1
+#B33951
+#E3D081
+*/
+
+*, body {
+  font-size: 16px;
+  color: #54494B;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  background: #91C7B1;
+}
+
+button, select, input, textarea {
+  outline: none;
+  background: #F1F7ED;
+  border: none;
+  padding: 0.5em 1em;
+}
+
+.control-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100vw;
+  margin: 2em auto ;
+}
+
+.control-container > * {
+  width: 30vw;
+  min-width: 20em;
+  margin: 1em 2em;
+}
+
+.control-container select, .control-container button {
+  display: block;
+  width: 100%;
+}
+
+.control-container label {
+  display: block;
+  margin: 1em 0 0.5em -0.75em;
+}
+
+.control-container .checkbox-label {
+  display: inline-block;
+  margin: 1em 0 0.5em -0.75em;
+}
+
+.swatch-container {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 8vw;
+}
+
+.swatch {
+  flex-grow: 1;
+  display: inline-block;
+}
+
+.color-input {
+  box-sizing : border-box;
+  min-width: 20em;
+  width: 100%;
+  display: block;
+  outline: none;
+  height: 10em;
+  font-size: 1rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .swatch-container {
+    min-height: 0;
+  }
+}

@@ -1,3 +1,32 @@
+function sortAndDownloadColors() {
+  const colors = sortColors();
+  let hex = [];
+  let rgb = [];
+  let hsl = [];
+
+  colors.forEach(elem => {
+    hex.push(elem.hex);
+    rgb.push(elem.rgb);
+    hsl.push(elem.hsl);
+  });
+
+  const result = {
+    colorObjects: colors,
+    hexArray: hex,
+    rgbArray: rgb,
+    hslArray: hsl
+  }
+
+  const downloadFile = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
+  const downloadLink = document.createElement('a');
+  downloadLink.setAttribute("href", downloadFile);
+  downloadLink.setAttribute("download", "sorted-colors.json");
+  downloadLink.click();
+  downloadLink.remove();
+
+  console.log(result);
+}
+
 function sortColors() {
   const swatchContainer = document.getElementById('swatch-container');
   const input = document.getElementById('color-input');
@@ -22,6 +51,8 @@ function sortColors() {
 
   swatchContainer.innerHTML = colorElements;
   input.value = colors.map(el => { return el[format] }).join(', ');
+
+  return colors;
 }
 
 function determineSwatchSize(count) {
@@ -58,12 +89,17 @@ function createColorArray(hex, rgb, hsl) {
     result.push(createColorFromHsl(elem));
   });
 
-  console.log(result);
-  console.log(JSON.stringify(result));
+  // console.log(result);
+  // console.log(JSON.stringify(result));
   return result;
 }
 
-document.getElementById('submit').onclick = () => {
+document.getElementById('sort-button').onclick = () => {
   sortColors();
+  return false;
+}
+
+document.getElementById('download-button').onclick = () => {
+  sortAndDownloadColors();
   return false;
 }

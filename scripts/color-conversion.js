@@ -41,7 +41,7 @@ function createColorFromHsl(h) {
 }
 
 function normalizeHex(hex) {
-  return hex.length === 4 ? hex.replace(/([A-F0-9])/gi, '$1$1') : hex;
+  return (hex.length === 4 ? hex.replace(/([A-F0-9])/gi, '$1$1') : hex).toUpperCase();
 }
 
 function hexToRgb(hex) {
@@ -55,7 +55,7 @@ function hexToRgb(hex) {
 }
 
 function rgbToHex(red, green, blue) {
-  return {hex: "#" + ((1 << 24) + (parseInt(red) << 16) + (parseInt(green) << 8) + parseInt(blue)).toString(16).slice(1) };
+  return {hex: "#" + ((1 << 24) + (parseInt(red) << 16) + (parseInt(green) << 8) + parseInt(blue)).toString(16).toUpperCase().slice(1) };
 }
 
 function rgbToHsl(red, green, blue) {
