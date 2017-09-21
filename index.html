@@ -19,20 +19,38 @@
     <div class="control-container">
       <div>
         <div>
-          <label for="sort-option">Sort by</label>
-          <select name="sort-option" id="sort-option">
-            <option value="hue-saturation-lightness">Hue-Saturation-Lightness</option>
-            <option value="hue-lightness-saturation">Hue-Lightness-Saturation</option>
-            <option value="saturation-hue-lightness">Saturation-Hue-Lightness</option>
-            <option value="saturation-lightness-hue">Saturation-Lightness-Hue</option>
-            <option value="lightness-hue-saturation">Lightness-Hue-Saturation</option>
-            <option value="lightness-saturation-hue">Lightness-Saturation-Hue</option>
-            <option value="red-green-blue">Red-Green-Blue</option>
-            <option value="red-blue-green">Red-Blue-Green</option>
-            <option value="blue-red-green">Blue-Red-Green</option>
-            <option value="blue-green-red">Blue-Green-Red</option>
-            <option value="green-blue-red">Green-Blue-Red</option>
-            <option value="green-red-blue">Green-Red-Blue</option>
+          <label for="primary-sort">Primary Sort</label>
+          <select name="primary-sort" id="primary-sort">
+            <option value="hue" selected>Hue</option>
+            <option value="saturation">Saturation</option>
+            <option value="lightness">Lightness</option>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="secondary-sort">Secondary Sort</label>
+          <select name="secondary-sort" id="secondary-sort">
+            <option value="hue">Hue</option>
+            <option value="saturation" selected>Saturation</option>
+            <option value="lightness">Lightness</option>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="tertiary-sort">Tertiary Sort</label>
+          <select name="tertiary-sort" id="tertiary-sort">
+            <option value="hue">Hue</option>
+            <option value="saturation">Saturation</option>
+            <option value="lightness" selected>Lightness</option>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
           </select>
         </div>
 

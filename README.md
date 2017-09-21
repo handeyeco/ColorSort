@@ -16,20 +16,26 @@ JSON output is in this format:
 
 ``` JSON
 {
-  "colorObjects": [{
-    "hex": "#BADA55",
-    "rgb": "rgb(186, 218, 85)",
-    "hsl": "hsl(74, 64%, 59%)",
-    "red": 186,
-    "green": 218,
-    "blue": 85,
-    "hue": 74,
-    "saturation": 64,
-    "lightness": 59
-  }],
-  "hexArray": ["#BADA55"],
-  "rgbArray": ["rgb(186, 218, 85)"],
-  "hslArray": ["hsl(74, 64%, 59%)"]
+    "colors": [{
+        "hex": "#BADA55",
+        "rgb": "rgb(186, 218, 85)",
+        "hsl": "hsl(74, 64%, 59%)",
+        "red": 186,
+        "green": 218,
+        "blue": 85,
+        "hue": 74,
+        "saturation": 64,
+        "lightness": 59
+    }],
+    "sortInformation": {
+        "primarySort": "hue",
+        "secondarySort": "saturation",
+        "tertiarySort": "lightness",
+        "reversed": false
+    },
+    "hexArray": ["#BADA55"],
+    "rgbArray": ["rgb(186, 218, 85)"],
+    "hslArray": ["hsl(74, 64%, 59%)"]
 }
 ```
 

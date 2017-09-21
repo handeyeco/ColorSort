@@ -4,18 +4,17 @@ function sortAndDownloadColors() {
   let rgb = [];
   let hsl = [];
 
-  colors.forEach(elem => {
+  colors.colors.forEach(elem => {
     hex.push(elem.hex);
     rgb.push(elem.rgb);
     hsl.push(elem.hsl);
   });
 
-  const result = {
-    colorObjects: colors,
+  const result = Object.assign(colors, {
     hexArray: hex,
     rgbArray: rgb,
     hslArray: hsl
-  }
+  })
 
   const downloadFile = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
   const downloadLink = document.createElement('a');
@@ -31,16 +30,18 @@ function sortColors() {
   const swatchContainer = document.getElementById('swatch-container');
   const input = document.getElementById('color-input');
 
-  const sort = document.getElementById('sort-option').value;
-  const sortMethod = getSortMethod(sort);
-  const reverse = document.getElementById('reverse').checked;
+  const primarySort = document.getElementById('primary-sort').value;
+  const secondarySort = document.getElementById('secondary-sort').value;
+  const tertiarySort = document.getElementById('tertiary-sort').value;
+  const sortMethod = getSortMethod(primarySort, secondarySort, tertiarySort);
+  const reversed = document.getElementById('reverse').checked;
   const format = document.getElementById('format-option').value;
 
   const hexValues = input.value.match(/#[A-F0-9]{6}|#[A-F0-9]{3}/gi) || [];
   const rgbValues = input.value.match(/rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)/gi) || [];
   const hslValues = input.value.match(/hsl\(\s*\d{1,3}\s*,\s*\d{1,3}%\s*,\s*\d{1,3}%\s*\)/gi) || [];
   const colors = createColorArray(hexValues, rgbValues, hslValues).sort(sortMethod);
-  if (reverse) {
+  if (reversed) {
     colors.reverse();
   }
 
@@ -54,7 +55,7 @@ function sortColors() {
     return el[format]
   }).join(', ');
 
-  return colors;
+  return { colors, sortInformation: { primarySort, secondarySort, tertiarySort, reversed } };
 }
 
 function determineSwatchSize(count) {
@@ -74,10 +75,9 @@ function determineSwatchSize(count) {
   ];
 }
 
-function getSortMethod(sort) {
-  const split = sort.split('-');
+function getSortMethod(primary, secondary, tertiary) {
   return (e1, e2) => {
-    return e1[split[0]] - e2[split[0]] || e1[split[1]] - e2[split[1]] || e1[split[2]] - e2[split[2]]
+    return e1[primary] - e2[primary] || e1[secondary] - e2[secondary] || e1[tertiary] - e2[tertiary]
   };
 }
 
