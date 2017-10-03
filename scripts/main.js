@@ -23,7 +23,7 @@ function sortAndDownloadColors() {
   downloadLink.click();
   downloadLink.remove();
 
-  console.log(result);
+  // console.log(result);
 }
 
 function sortColors() {
@@ -35,14 +35,19 @@ function sortColors() {
   const tertiarySort = document.getElementById('tertiary-sort').value;
   const sortMethod = getSortMethod(primarySort, secondarySort, tertiarySort);
   const reversed = document.getElementById('reverse').checked;
+  const dedup = document.getElementById('dedup').checked;
   const format = document.getElementById('format-option').value;
 
   const hexValues = input.value.match(/#[A-F0-9]{6}|#[A-F0-9]{3}/gi) || [];
   const rgbValues = input.value.match(/rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)/gi) || [];
   const hslValues = input.value.match(/hsl\(\s*\d{1,3}\s*,\s*\d{1,3}%\s*,\s*\d{1,3}%\s*\)/gi) || [];
-  const colors = createColorArray(hexValues, rgbValues, hslValues).sort(sortMethod);
+  let colors = createColorArray(hexValues, rgbValues, hslValues).sort(sortMethod);
   if (reversed) {
     colors.reverse();
+  }
+
+  if (dedup) {
+    colors = colors.filter((elem, index, self) => self.findIndex(elem2 => elem.hex === elem2.hex) === index);
   }
 
   const boxSize = determineSwatchSize(colors.length);
