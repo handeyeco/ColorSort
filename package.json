@@ -1,9 +1,12 @@
 {
-  "name": "ColorSort",
+  "name": "colorsort",
   "version": "1.0.0",
   "description": "Takes blobs of text, sifts through for colors, and sorts them!",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack-dev-server"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/matthewbryancurtis/ColorSort.git"
@@ -12,6 +15,13 @@
   "author": "Matthew Curtis",
   "license": "MIT",
   "dependencies": {
-    "tinycolor": "0.0.1"
+    "tinycolor2": "^1.4.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
   }
 }
