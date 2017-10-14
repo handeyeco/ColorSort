@@ -1,0 +1,17 @@
+{
+  "name": "ColorSort",
+  "version": "1.0.0",
+  "description": "Takes blobs of text, sifts through for colors, and sorts them!",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewbryancurtis/ColorSort.git"
+  },
+  "keywords": [],
+  "author": "Matthew Curtis",
+  "license": "MIT",
+  "dependencies": {
+    "tinycolor": "0.0.1"
+  }
+}
