@@ -102,9 +102,9 @@ ColorSort.prototype._augmentTinyColorMethods = function(color) {
   color.green       = function () { return this._g; };
   color.blue        = function () { return this._b; };
   color.alpha       = function () { return this._a; };
-  color.hue         = function () { return this.toHsl().h; };
-  color.saturation  = function () { return this.toHsl().s; };
-  color.lightness   = function () { return this.toHsl().l; };
+  color.hue         = function () { return Math.round(this.toHsl().h); };
+  color.saturation  = function () { return Math.round(this.toHsl().s * 100); };
+  color.lightness   = function () { return Math.round(this.toHsl().l * 100); };
 
   return color;
 }

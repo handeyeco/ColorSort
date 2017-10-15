@@ -7,8 +7,8 @@
 
   <title>Color Sort</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
-  <link rel="stylesheet" href="styles/reset.css" />
-  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="demo/styles/reset.css" />
+  <link rel="stylesheet" href="demo/styles/main.css" />
 </head>
 
 <body>
@@ -74,7 +74,7 @@
           <label for="format-option">Format to</label>
           <select name="format-option" id="format-option">
             <option value="hex6">Hexidecimal</option>
-            <option value="prgb">Red-Green-Blue</option>
+            <option value="rgb">Red-Green-Blue</option>
             <option value="hsl">Hue-Saturation-Lightness</option>
           </select>
         </div>
@@ -101,58 +101,6 @@
 </body>
 
 <script src="dist/colorsort.js"></script>
-<script>
-  let sortButton = document.getElementById('sort-button');
-  let form = document.getElementById('input-form');
-  let colors;
-
-  sortButton.addEventListener('click', sort);
-
-  function sort() {
-    const input = form.elements['color-input'].value;
-    const format = form.elements['format-option'].value;
-    const swatchContainer = document.getElementById('swatch-container');
-
-    const criteria = [
-      { sort: form.elements['primary-sort'].value, asc: form.elements['primary-asc'].checked },
-      { sort: form.elements['secondary-sort'].value, asc: form.elements['secondary-asc'].checked },
-      { sort: form.elements['tertiary-sort'].value, asc: form.elements['tertiary-asc'].checked },
-    ];
-
-    colors = form.elements['dedup'].checked ?
-      new ColorSort(input).set().sort(criteria) :
-      new ColorSort(input).sort(criteria);
-
-    form.elements['color-input'].value = colors
-      .formattedValues(format)
-      .join(', ')
-      .toUpperCase();
-
-    console.log(colors.collection.length);
-    const boxSize = determineSwatchSize(colors.collection.length);
-    const colorElements = colors.collection.map(elem => {
-      return `<div class="swatch" style="background: ${elem.toHexString()}; width: ${boxSize[0]}%; height: ${boxSize[1]}vh" title="${elem.toString(format).toUpperCase()}"></div>`
-    }).join('');
-
-    swatchContainer.innerHTML = colorElements;
-  }
-
-  function determineSwatchSize(count) {
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    let size = windowWidth;
-    let cubePerLine = 1;
-
-    while (size * (count / cubePerLine) > windowHeight) {
-      cubePerLine++;
-      size = windowWidth / cubePerLine - 10;
-    }
-
-    return [
-      100 / cubePerLine,
-      100 / Math.ceil(count / cubePerLine)
-    ];
-  }
-</script>
+<script src="demo/scripts/main.js"></script>
 
 </html>
