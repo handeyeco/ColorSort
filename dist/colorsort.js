@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("colorsort", [], factory);
+		define("ColorSort", [], factory);
 	else if(typeof exports === 'object')
-		exports["colorsort"] = factory();
+		exports["ColorSort"] = factory();
 	else
-		root["colorsort"] = factory();
+		root["ColorSort"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -86,9 +86,37 @@ var _tinycolor2 = _interopRequireDefault(_tinycolor);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function colorsort(text) {
-  console.log('Hello world');
+function ColorSort(text) {
+  var collection = text.match(/(rgba?\(.*?\))|(hsla?\(.*?\))|(#[A-F0-9]{3,8})/gi);
+  collection = collection.reduce(function (accum, elem) {
+    elem = (0, _tinycolor2.default)(elem);
+    if (elem.isValid()) {
+      accum.push(elem);
+    }
+    return accum;
+  }, []);
+
+  this.collection = collection;
+  return this;
 }
+
+ColorSort.prototype.sort = function () {
+  collection = this.collection.sort(function (elem1, elem2) {
+    return elem1._r - elem2._r;
+  });
+
+  return this;
+};
+
+ColorSort.prototype.formattedValues = function () {
+  var format = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'hex6';
+
+  return this.collection.map(function (elem) {
+    return elem.toString(format);
+  });
+};
+
+module.exports = ColorSort;
 
 /***/ }),
 /* 1 */

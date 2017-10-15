@@ -5,7 +5,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'colorsort.js',
-    library: 'colorsort',
+    library: 'ColorSort',
     libraryTarget: 'umd',
     umdNamedDefine: true,
   },
