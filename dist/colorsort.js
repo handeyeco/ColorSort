@@ -80,18 +80,15 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = colorsort;
-
 var _tinycolor = __webpack_require__(1);
 
 var _tinycolor2 = _interopRequireDefault(_tinycolor);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function colorsort(text) {}
+function colorsort(text) {
+  console.log('Hello world');
+}
 
 /***/ }),
 /* 1 */
