@@ -90,9 +90,9 @@
 
 <script src="dist/colorsort.js"></script>
 <script>
-  let input = '#8FBC8F rgba(238, 130, 238, 0.5) rgb(105, 105, 105) hsl(33, 100%, 88%) #87C hsla(351, 100%, 86%, 0.5)';
+  let input = '#000000 rgb(170, 170, 170) hsl(0, 0%, 100%)';
   let cs = new ColorSort(input);
-  console.log(cs.sort().formattedValues());
+  console.log(cs.sort().formattedValues('hsl'));
 </script>
 
 </html>
