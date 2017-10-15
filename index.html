@@ -31,6 +31,11 @@
         </div>
 
         <div>
+          <label for="primary-asc" class="checkbox-label">Ascending?</label>
+          <input type="checkbox" id="primary-asc" name="primary-asc">
+        </div>
+
+        <div>
           <label for="secondary-sort">Secondary Sort</label>
           <select name="secondary-sort" id="secondary-sort">
             <option value="hue">Hue</option>
@@ -40,6 +45,11 @@
             <option value="green">Green</option>
             <option value="blue">Blue</option>
           </select>
+        </div>
+
+        <div>
+          <label for="secondary-asc" class="checkbox-label">Ascending?</label>
+          <input type="checkbox" id="secondary-asc" name="secondary-asc">
         </div>
 
         <div>
@@ -55,6 +65,11 @@
         </div>
 
         <div>
+          <label for="tertiary-asc" class="checkbox-label">Ascending?</label>
+          <input type="checkbox" id="tertiary-asc" name="tertiary-asc">
+        </div>
+
+        <div>
           <label for="format-option">Format to</label>
           <select name="format-option" id="format-option">
             <option value="hex">Hexidecimal</option>
@@ -63,15 +78,10 @@
           </select>
         </div>
 
-        <div>
-          <label for="reverse" class="checkbox-label">Reverse Order</label>
-          <input type="checkbox" id="reverse" name="reverse">
-        </div>
-
-        <div>
+        <!-- <div>
           <label for="dedup" class="checkbox-label">Remove Duplicates</label>
           <input type="checkbox" id="dedup" name="dedup">
-        </div>
+        </div> -->
       </div>
       <div>
         <label for="color-input">Add your hex, rga, and/or hsl colors here...</label>
@@ -90,9 +100,10 @@
 
 <script src="dist/colorsort.js"></script>
 <script>
-  let input = '#000000 rgb(170, 170, 170) hsl(0, 0%, 100%)';
+  let input = '#ffffaa #aaaa00 #ffaa00 #ff0000';
   let cs = new ColorSort(input);
-  console.log(cs.sort().formattedValues('hsl'));
+  cs.sort([{ sort: 'red' }, { sort: 'green', asc: true }]);
+  console.log(cs.collection);
 </script>
 
 </html>

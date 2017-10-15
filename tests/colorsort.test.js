@@ -85,30 +85,76 @@ describe('ColorSort constructor input types', function () {
   });
 });
 
+describe('ColorSort.sort() single sort', function () {
+  const input = '#ffaa00 #00ffaa #aa00ff';
+  const cs = new ColorSort(input);
+
+  it('defaults to sorting red -> green -> blue descending', function () {
+    const result = cs.sort();
+    const expected = ['#ffaa00', '#aa00ff', '#00ffaa'];
+    expect(result.formattedValues()).to.deep.equal(expected);
+  });
+
+  it('accepts string input', function () {
+    const result = cs.sort('green');
+    const expected = ['#00ffaa', '#ffaa00', '#aa00ff'];
+    expect(result.formattedValues()).to.deep.equal(expected);
+  });
+
+  it('accepts array input', function () {
+    const result = cs.sort([{ sort: 'blue' }]);
+    const expected = ['#aa00ff', '#00ffaa', '#ffaa00'];
+    expect(result.formattedValues()).to.deep.equal(expected);
+  });
+
+  it('can sort by ascending', function () {
+    const result = cs.sort([{ sort: 'red', asc: true }]);
+    const expected = ['#00ffaa', '#aa00ff', '#ffaa00'];
+    expect(result.formattedValues()).to.deep.equal(expected);
+  });
+});
+
+describe('ColorSort.sort() mutiple sort', function () {
+  const input = '#ffffaa #aaaa00 #ffaa00 #ff0000';
+  const cs = new ColorSort(input);
+
+  it('can accept multiple sort criteria', function () {
+    const result = cs.sort([{ sort: 'red' }, { sort: 'green' }]);
+    const expected = ['#ffffaa', '#ffaa00', '#ff0000', '#aaaa00'];
+    expect(result.formattedValues()).to.deep.equal(expected);
+  });
+
+  it('can accept multiple asc criteria', function () {
+    const result = cs.sort([{ sort: 'red' }, { sort: 'green', asc: true }]);
+    const expected = ['#ff0000', '#ffaa00', '#ffffaa', '#aaaa00'];
+    expect(result.formattedValues()).to.deep.equal(expected);
+  });
+});
+
 describe('ColorSort.formattedValues()', function () {
   const cs = new ColorSort('#000000 rgb(170, 170, 170) hsl(0, 0%, 100%)');
 
   it('formattedValues() returns an array of hex values', function () {
     const result = cs.formattedValues('hex');
-    const expected = ["#000000", "#aaaaaa", "#ffffff"];
+    const expected = ['#000000', '#aaaaaa', '#ffffff'];
     expect(result).to.have.deep.members(expected);
   });
 
   it('formattedValues(\'hex\') returns an array of hex values', function () {
     const result = cs.formattedValues('hex');
-    const expected = ["#000000", "#aaaaaa", "#ffffff"];
+    const expected = ['#000000', '#aaaaaa', '#ffffff'];
     expect(result).to.have.deep.members(expected);
   });
 
   it('formattedValues(\'rgb\') returns an array of rgb values', function () {
     const result = cs.formattedValues('rgb');
-    const expected = ["rgb(0, 0, 0)", "rgb(170, 170, 170)", "rgb(255, 255, 255)"];
+    const expected = ['rgb(0, 0, 0)', 'rgb(170, 170, 170)', 'rgb(255, 255, 255)'];
     expect(result).to.have.deep.members(expected);
   });
 
   it('formattedValues(\'hsl\') returns an array of hsl values', function () {
     const result = cs.formattedValues('hsl');
-    const expected = ["hsl(0, 0%, 0%)", "hsl(0, 0%, 67%)", "hsl(0, 0%, 100%)"];
+    const expected = ['hsl(0, 0%, 0%)', 'hsl(0, 0%, 67%)', 'hsl(0, 0%, 100%)'];
     expect(result).to.have.deep.members(expected);
   });
 });
