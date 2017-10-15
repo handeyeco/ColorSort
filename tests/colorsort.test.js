@@ -158,3 +158,17 @@ describe('ColorSort.formattedValues()', function () {
     expect(result).to.have.deep.members(expected);
   });
 });
+
+describe('ColorSort.set()', function () {
+  it('remove duplicate colors', function () {
+    const input = '#000000 #000000 #FFFFFF';
+    const cs = new ColorSort(input).set();
+    expect(cs.collection).to.have.lengthOf(2);
+  });
+
+  it('distinguish between opacities', function () {
+    const input = 'rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 1)';
+    const cs = new ColorSort(input).set();
+    expect(cs.collection).to.have.lengthOf(2);
+  });
+});
