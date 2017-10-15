@@ -6,20 +6,20 @@ describe('ColorSort constructor core', function () {
   it('creates an array of tinycolor objects', function () {
     const input = '#BADA55';
     const cs = new ColorSort(input);
-    const result = cs.collection[0] instanceof tinycolor;
+    const result = cs.entries[0] instanceof tinycolor;
     expect(result).to.be.true;
   });
 
   it('disregards non-color text', function () {
     const input = '#FF0000 and #00FF00 are complementary colors';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(2);
+    expect(cs.entries).to.have.lengthOf(2);
   });
 
   it('separates adjacent color text', function () {
     const input = '#FF0000#00FF00#0000FF';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(3);
+    expect(cs.entries).to.have.lengthOf(3);
   });
 });
 
@@ -27,61 +27,61 @@ describe('ColorSort constructor input types', function () {
   it('accepts 3-digit hex values', function () {
     const input = '#BAD';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(1);
+    expect(cs.entries).to.have.lengthOf(1);
   });
 
   it('accepts 4-digit hex values', function () {
     const input = '#BAD';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(1);
+    expect(cs.entries).to.have.lengthOf(1);
   });
 
   it('accepts 6-digit hex values', function () {
     const input = '#BAD';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(1);
+    expect(cs.entries).to.have.lengthOf(1);
   });
 
   it('accepts 8-digit hex values', function () {
     const input = '#BAD';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(1);
+    expect(cs.entries).to.have.lengthOf(1);
   });
 
   it('accepts rgb integer values', function () {
     const input = 'rgb(255, 0, 153)';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(1);
+    expect(cs.entries).to.have.lengthOf(1);
   });
 
   it('accepts rgb percentage values', function () {
     const input = 'rgb(100%, 0%, 60%)';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(1);
+    expect(cs.entries).to.have.lengthOf(1);
   });
 
   it('accepts rgba integer values', function () {
     const input = 'rgb(255, 0, 153, 1)';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(1);
+    expect(cs.entries).to.have.lengthOf(1);
   });
 
   it('accepts rgba percentage values', function () {
     const input = 'rgb(100%, 0%, 60%, 100%)';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(1);
+    expect(cs.entries).to.have.lengthOf(1);
   });
 
   it('accepts hsl values', function () {
     const input = 'hsl(270,60%,70%)';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(1);
+    expect(cs.entries).to.have.lengthOf(1);
   });
 
   it('accepts hsla values', function () {
     const input = 'hsla(240, 100%, 50%, 1)';
     const cs = new ColorSort(input);
-    expect(cs.collection).to.have.lengthOf(1);
+    expect(cs.entries).to.have.lengthOf(1);
   });
 });
 
@@ -159,16 +159,16 @@ describe('ColorSort.formattedValues()', function () {
   });
 });
 
-describe('ColorSort.set()', function () {
+describe('ColorSort.removeDuplicates()', function () {
   it('remove duplicate colors', function () {
     const input = '#000000 #000000 #FFFFFF';
-    const cs = new ColorSort(input).set();
-    expect(cs.collection).to.have.lengthOf(2);
+    const cs = new ColorSort(input).removeDuplicates();
+    expect(cs.entries).to.have.lengthOf(2);
   });
 
   it('distinguish between opacities', function () {
     const input = 'rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 1)';
-    const cs = new ColorSort(input).set();
-    expect(cs.collection).to.have.lengthOf(2);
+    const cs = new ColorSort(input).removeDuplicates();
+    expect(cs.entries).to.have.lengthOf(2);
   });
 });

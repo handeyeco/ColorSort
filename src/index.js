@@ -8,9 +8,9 @@ import tinycolor from 'tinycolor2';
  */
 function ColorSort(text) {
   // Parse text for pieces that might be rgba?, hsla?, or hex colors
-  let collection = text.match(/(rgba?\(.*?\))|(hsla?\(.*?\))|(#[A-F0-9]{3,8})/gi) || [];
+  let entries = text.match(/(rgba?\(.*?\))|(hsla?\(.*?\))|(#[A-F0-9]{3,8})/gi) || [];
   // Create new array from findings
-  collection = collection.reduce((accum, elem) => {
+  entries = entries.reduce((accum, elem) => {
     // Convert color to TinyColor object
     elem = tinycolor(elem);
     if (elem.isValid()) {
@@ -20,14 +20,14 @@ function ColorSort(text) {
     return accum;
   }, []);
 
-  this.collection = collection;
+  this.entries = entries;
   return this;
 }
 
 
 
 /**
- * Sort color collection based on a set of criteria
+ * Sort color entries based on a set of criteria
  * @param {(string|array)} options - sorting criteria.
  * If {string} , must be the name of a function in ColorSort.prototype._augmentTinyColorMethods
  * If {array} , must be an array of objects in this format:
@@ -40,7 +40,7 @@ ColorSort.prototype.sort = function(options = [{ sort: 'red' }, { sort: 'green' 
     options = [{ sort: options }]
   }
 
-  this.collection = this.collection.sort((elem1, elem2) => {
+  this.entries = this.entries.sort((elem1, elem2) => {
     let result = 0;
 
     // Iterate through sort criteria
@@ -63,13 +63,13 @@ ColorSort.prototype.sort = function(options = [{ sort: 'red' }, { sort: 'green' 
 
 
 /**
- * Return color collection as an array of strings in given format
+ * Return color entries as an array of strings in given format
  * @param {string} format - format of color output.
  * Formats are determined by TinyColor: https://github.com/bgrins/TinyColor#toString
  * @returns {string[]} - returns array of colors as strings
  */
 ColorSort.prototype.formattedValues = function(format = 'hex6') {
-  return this.collection.map(elem => {
+  return this.entries.map(elem => {
     return elem.toString(format);
   });
 };
@@ -80,7 +80,7 @@ ColorSort.prototype.formattedValues = function(format = 'hex6') {
  * Creates a new ColorSort object with duplicate values removed
  * @returns {Object.<ColorSort>} - returns new ColorSort object
  */
-ColorSort.prototype.set = function() {
+ColorSort.prototype.removeDuplicates = function() {
   // Convert array of hex values to a set
   const set = new Set(this.formattedValues('hex8'));
   // Convert back to array then string

@@ -18,13 +18,13 @@ function sort() {
   ];
 
   colors = fe['dedup'].checked
-    ? new ColorSort(input).set().sort(criteria)
+    ? new ColorSort(input).removeDuplicates().sort(criteria)
     : new ColorSort(input).sort(criteria);
 
   fe['color-input'].value = colors.formattedValues(format).join(', ').toUpperCase();
 
-  const boxSize = determineSwatchSize(colors.collection.length);
-  const colorElements = colors.collection.map(elem => {
+  const boxSize = determineSwatchSize(colors.entries.length);
+  const colorElements = colors.entries.map(elem => {
     return `<div class="swatch" style="background: ${elem.toHexString()}; width: ${boxSize[0]}%; height: ${boxSize[1]}vh" title="${elem.toString(format).toUpperCase()}"></div>`
   }).join('');
 
@@ -34,7 +34,7 @@ function sort() {
 function download() {
   sort();
   let result = {};
-  result.colors = colors.collection.map(elem => {
+  result.colors = colors.entries.map(elem => {
     return {
       rgb: elem.toRgbString,
       hsl: elem.toHslString,
