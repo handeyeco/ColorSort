@@ -102,10 +102,10 @@ function ColorSort() {
   // Create new array from findings
   entries = entries.reduce(function (accum, elem) {
     // Convert color to TinyColor object
-    elem = (0, _tinycolor2.default)(elem);
-    if (elem.isValid()) {
+    var color = (0, _tinycolor2.default)(elem);
+    if (color.isValid()) {
       // If it's a valid color, add methods we need for sorting and add object to array
-      accum.push(_this._augmentTinyColorMethods(elem));
+      accum.push(_this._augmentTinyColorMethods(color));
     }
     return accum;
   }, []);
@@ -122,23 +122,26 @@ function ColorSort() {
  * [{ sort: {string} , asc: {boolean} }]
  * @returns {Object.<ColorSort>} - returns updated instance of ColorSort object
  */
-ColorSort.prototype.sort = function () {
+ColorSort.prototype.sort = function sort() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [{ sort: 'red' }, { sort: 'green' }, { sort: 'blue' }];
 
+  var opt = void 0;
   // Convert string input to array format
   if (typeof options === 'string') {
-    options = [{ sort: options }];
+    opt = [{ sort: options }];
+  } else {
+    opt = options.slice();
   }
 
   this.entries = this.entries.sort(function (elem1, elem2) {
     var result = 0;
 
     // Iterate through sort criteria
-    for (var o in options) {
+    for (var i = 0; i < opt.length && !result; i++) {
       // Check for valid options
-      if (elem1[options[o].sort] && elem2[options[o].sort]) {
+      if (elem1[opt[i].sort] && elem2[opt[i].sort]) {
         // Sort either ascending or descending
-        result = options[o].asc ? elem1[options[o].sort]() - elem2[options[o].sort]() : elem2[options[o].sort]() - elem1[options[o].sort]();
+        result = opt[i].asc ? elem1[opt[i].sort]() - elem2[opt[i].sort]() : elem2[opt[i].sort]() - elem1[opt[i].sort]();
         // Break when we've found something to sort by
         if (result) {
           break;
@@ -158,7 +161,7 @@ ColorSort.prototype.sort = function () {
  * Formats are determined by TinyColor: https://github.com/bgrins/TinyColor#toString
  * @returns {string[]} - returns array of colors as strings
  */
-ColorSort.prototype.formattedValues = function () {
+ColorSort.prototype.formattedValues = function formattedValues() {
   var format = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'hex6';
 
   return this.entries.map(function (elem) {
@@ -170,7 +173,7 @@ ColorSort.prototype.formattedValues = function () {
  * Creates a new ColorSort object with duplicate values removed
  * @returns {Object.<ColorSort>} - returns new ColorSort object
  */
-ColorSort.prototype.removeDuplicates = function () {
+ColorSort.prototype.removeDuplicates = function removeDuplicates() {
   // Convert array of hex values to a set
   var set = new Set(this.formattedValues('hex8'));
   // Convert back to array then string
@@ -185,26 +188,26 @@ ColorSort.prototype.removeDuplicates = function () {
  * @param {Object.<tinycolor>} color - takes an instance of a TinyColor object
  * @returns {Object.<tinycolor>} - returns TinyColor object with augmented methods
  */
-ColorSort.prototype._augmentTinyColorMethods = function (color) {
-  color.red = function () {
+ColorSort.prototype._augmentTinyColorMethods = function _augmentTinyColorMethods(color) {
+  color.red = function red() {
     return this._r;
   };
-  color.green = function () {
+  color.green = function green() {
     return this._g;
   };
-  color.blue = function () {
+  color.blue = function blue() {
     return this._b;
   };
-  color.alpha = function () {
+  color.alpha = function alpha() {
     return this._a;
   };
-  color.hue = function () {
+  color.hue = function hue() {
     return Math.round(this.toHsl().h);
   };
-  color.saturation = function () {
+  color.saturation = function saturation() {
     return Math.round(this.toHsl().s * 100);
   };
-  color.lightness = function () {
+  color.lightness = function lightness() {
     return Math.round(this.toHsl().l * 100);
   };
 

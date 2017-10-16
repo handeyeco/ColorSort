@@ -37,7 +37,7 @@ function ColorSort(text = '') {
 ColorSort.prototype.sort = function sort(options = [{ sort: 'red' }, { sort: 'green' }, { sort: 'blue' }]) {
   let opt;
   // Convert string input to array format
-  if (typeof opt === 'string') {
+  if (typeof options === 'string') {
     opt = [{ sort: options }];
   } else {
     opt = options.slice();
@@ -101,15 +101,13 @@ ColorSort.prototype.removeDuplicates = function removeDuplicates() {
  * @returns {Object.<tinycolor>} - returns TinyColor object with augmented methods
  */
 ColorSort.prototype._augmentTinyColorMethods = function _augmentTinyColorMethods(color) {
-  const augmented = Object.assign({}, color);
-
-  augmented.red         = function red() { return this._r; };
-  augmented.green       = function green() { return this._g; };
-  augmented.blue        = function blue() { return this._b; };
-  augmented.alpha       = function alpha() { return this._a; };
-  augmented.hue         = function hue() { return Math.round(this.toHsl().h); };
-  augmented.saturation  = function saturation() { return Math.round(this.toHsl().s * 100); };
-  augmented.lightness   = function lightness() { return Math.round(this.toHsl().l * 100); };
+  color.red         = function red() { return this._r; };
+  color.green       = function green() { return this._g; };
+  color.blue        = function blue() { return this._b; };
+  color.alpha       = function alpha() { return this._a; };
+  color.hue         = function hue() { return Math.round(this.toHsl().h); };
+  color.saturation  = function saturation() { return Math.round(this.toHsl().s * 100); };
+  color.lightness   = function lightness() { return Math.round(this.toHsl().l * 100); };
 
   return color;
 };
