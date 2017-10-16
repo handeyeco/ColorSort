@@ -86,6 +86,30 @@ var _tinycolor2 = _interopRequireDefault(_tinycolor);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Augment TinyColor's prototype for ease of sorting
+var proto = _tinycolor2.default.prototype;
+proto.red = function red() {
+  return this._r;
+};
+proto.green = function green() {
+  return this._g;
+};
+proto.blue = function blue() {
+  return this._b;
+};
+proto.alpha = function alpha() {
+  return this._a;
+};
+proto.hue = function hue() {
+  return Math.round(this.toHsl().h);
+};
+proto.saturation = function saturation() {
+  return Math.round(this.toHsl().s * 100);
+};
+proto.lightness = function lightness() {
+  return Math.round(this.toHsl().l * 100);
+};
+
 /**
  * Initialize ColorSort options
  * @constructor
@@ -93,8 +117,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @returns {Object.<ColorSort>} - returns new instance of ColorSort object
  */
 function ColorSort() {
-  var _this = this;
-
   var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
   // Parse text for pieces that might be rgba?, hsla?, or hex colors
@@ -105,7 +127,7 @@ function ColorSort() {
     var color = (0, _tinycolor2.default)(elem);
     if (color.isValid()) {
       // If it's a valid color, add methods we need for sorting and add object to array
-      accum.push(_this._augmentTinyColorMethods(color));
+      accum.push(color);
     }
     return accum;
   }, []);
@@ -181,37 +203,6 @@ ColorSort.prototype.removeDuplicates = function removeDuplicates() {
 
   // Create new ColorSort object from string
   return new ColorSort(input);
-};
-
-/**
- * Adds methods to TinyColor objects we'll need for sorting
- * @param {Object.<tinycolor>} color - takes an instance of a TinyColor object
- * @returns {Object.<tinycolor>} - returns TinyColor object with augmented methods
- */
-ColorSort.prototype._augmentTinyColorMethods = function _augmentTinyColorMethods(color) {
-  color.red = function red() {
-    return this._r;
-  };
-  color.green = function green() {
-    return this._g;
-  };
-  color.blue = function blue() {
-    return this._b;
-  };
-  color.alpha = function alpha() {
-    return this._a;
-  };
-  color.hue = function hue() {
-    return Math.round(this.toHsl().h);
-  };
-  color.saturation = function saturation() {
-    return Math.round(this.toHsl().s * 100);
-  };
-  color.lightness = function lightness() {
-    return Math.round(this.toHsl().l * 100);
-  };
-
-  return color;
 };
 
 module.exports = ColorSort;
