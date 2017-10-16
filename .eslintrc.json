@@ -8,6 +8,8 @@
         "no-multi-spaces": ["off"],
         "no-use-before-define": ["off"],
         "arrow-body-style": ["off"],
-        "no-param-reassign": ["off"]
+        "no-param-reassign": ["off"],
+        "padded-blocks": ["off"],
+        "import/no-unresolved": ["off"]
     }
 }

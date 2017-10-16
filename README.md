@@ -1,6 +1,6 @@
 # ColorSort
 
-ColorSort is a wrapper around the excellent [TinyColor](https://github.com/bgrins/TinyColor) package that allows you to parse arbitrary text for colors and then sort the colors based on several criteria.
+ColorSort is a wrapper around the excellent [TinyColor](https://github.com/bgrins/TinyColor) package that allows you to parse arbitrary text for colors and then sort the colors based on several criteria. ColorSort includes TinyColor and the `ColorSort.entries` array is an array of TinyColor objects that have the full functionality of TinyColor!
 
 ## Installation
 
@@ -158,4 +158,4 @@ MIT
 
 ## Contributing
 
-PRs welcome but please file a ticket before submitting new features. We welcome test writers.
+PRs welcome but please file a ticket before starting a new feature. We welcome test writers.

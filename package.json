@@ -4,11 +4,11 @@
   "description": "Takes blobs of text, sifts through for colors, and sorts them!",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build:min": "webpack -p && mv ./dist/colorsort.js ./dist/colorsort.min.js",
+    "build": "npm run lint && npm run test && npm run build:min && webpack",
     "watch": "webpack-dev-server",
     "test": "mocha-webpack --webpack-config webpack.config.js \"tests/*.test.js\"",
-    "lint": "eslint demo/** src/** tests/**",
-    "build": "npm run lint && npm run test && webpack"
+    "lint": "eslint demo/** src/** tests/**"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "eslint-plugin-import": "^2.7.0",
     "mocha": "^4.0.1",
     "mocha-webpack": "^0.7.0",
+    "uglifyjs-webpack-plugin": "^1.0.0-beta.3",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.1"
   }
