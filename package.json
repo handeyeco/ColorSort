@@ -1,6 +1,6 @@
 {
   "name": "colorsort",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Takes blobs of text, sifts through for colors, and sorts them!",
   "main": "./dist/colorsort.js",
   "scripts": {
