@@ -44,13 +44,16 @@ cs.sort('hue');
 console.log(cs.formattedValues('hsl'));
 // (7) ["hsl(273, 100%, 50%)", "hsl(240, 100%, 50%)", "hsl(120, 100%, 50%)", "hsl(60, 100%, 50%)", "hsl(30, 100%, 50%)", "hsl(0, 0%, 0%)", "hsl(0, 100%, 50%)"]
 
+cs = new ColorSort('#000 #FFF #000').removeDuplicates().sort().formattedValues();
+console.log(cs); // ["#ffffff", "#000000"]
+
 ```
 
 ## API
 
 ### ColorSort
 
-*ColorSort(text: String) => Object.<ColorSort>*
+__ColorSort(text: String) => Object.ColorSort__
 
 ColorSort is the only variable added to the global scope (if in a browser environment) or exported (if in a node environment). It is a constructor that should be used with the `new` keyword and given text (as a string) to parse for colors. It returns an `instanceof` a ColorSort object.
 
@@ -63,7 +66,7 @@ console.log(cs instanceof ColorSort); // true
 
 ### sort
 
-*ColorSort.sort([ options: String | Option[] ]) => Object.<ColorSort>*
+__ColorSort.sort([ options: String | Option[] ]) => Object.ColorSort__
 
 Like `Array.sort()`, `ColorSort.sort()` sorts colors in place on `ColorSort.entries`. The default value for the `options` parameter is `[{ sort: 'red' }, { sort: 'green' }, { sort: 'blue' }]`.
 
@@ -90,7 +93,7 @@ console.log(cs.formattedValues());
 
 ### removeDuplicates
 
-*ColorSort.removeDuplicates() => Object.<ColorSort>*
+__ColorSort.removeDuplicates() => Object.ColorSort__
 
 Returns a new ColorSort object with all of the duplicate color values removed.
 
@@ -105,7 +108,7 @@ console.log(cs.entries.length); // 1
 
 ### formattedValues
 
-*ColorSort.formattedValues([format: String]) => String[]*
+__ColorSort.formattedValues([format: String]) => String[]__
 
 Returns an array of the sorted colors in the specified format. If no format is specified, `formattedValues` defaults to using `'hex6'`. For more information on the supported formats, check out the docs on `TinyColor.toString()` on [TinyColor GitHub page](https://github.com/bgrins/TinyColor#toString).
 
