@@ -7,8 +7,8 @@
 
   <title>Color Sort</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
-  <link rel="stylesheet" href="styles/reset.css" />
-  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="demo/styles/reset.css" />
+  <link rel="stylesheet" href="demo/styles/main.css" />
 </head>
 
 <body>
@@ -16,6 +16,7 @@
   <div class="container">
     <div id="swatch-container" class="swatch-container"></div>
 
+    <form id="input-form">
     <div class="control-container">
       <div>
         <div>
@@ -31,6 +32,11 @@
         </div>
 
         <div>
+          <label for="primary-asc" class="checkbox-label">Ascending?</label>
+          <input type="checkbox" id="primary-asc" name="primary-asc">
+        </div>
+
+        <div>
           <label for="secondary-sort">Secondary Sort</label>
           <select name="secondary-sort" id="secondary-sort">
             <option value="hue">Hue</option>
@@ -40,6 +46,11 @@
             <option value="green">Green</option>
             <option value="blue">Blue</option>
           </select>
+        </div>
+
+        <div>
+          <label for="secondary-asc" class="checkbox-label">Ascending?</label>
+          <input type="checkbox" id="secondary-asc" name="secondary-asc">
         </div>
 
         <div>
@@ -55,17 +66,17 @@
         </div>
 
         <div>
-          <label for="format-option">Format to</label>
-          <select name="format-option" id="format-option">
-            <option value="hex">Hexidecimal</option>
-            <option value="rgb">Red-Green-Blue</option>
-            <option value="hsl">Hue-Saturation-Lightness</option>
-          </select>
+          <label for="tertiary-asc" class="checkbox-label">Ascending?</label>
+          <input type="checkbox" id="tertiary-asc" name="tertiary-asc">
         </div>
 
         <div>
-          <label for="reverse" class="checkbox-label">Reverse Order</label>
-          <input type="checkbox" id="reverse" name="reverse">
+          <label for="format-option">Format to</label>
+          <select name="format-option" id="format-option">
+            <option value="hex6">Hexidecimal</option>
+            <option value="rgb">Red-Green-Blue</option>
+            <option value="hsl">Hue-Saturation-Lightness</option>
+          </select>
         </div>
 
         <div>
@@ -84,11 +95,12 @@
         <button id="download-button" type="button">Sort &amp; Download JSON</button>
       </div>
     </div>
+    </form>
 
   </div>
 </body>
 
-<script src="scripts/color-conversion.js"></script>
-<script src="scripts/main.js"></script>
+<script src="dist/colorsort.js"></script>
+<script src="demo/scripts/main.js"></script>
 
 </html>
