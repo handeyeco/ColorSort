@@ -1,3 +1,6 @@
+/* global describe, it  */
+/* eslint func-names: ["off"], prefer-arrow-callback: ["off"], no-unused-expressions: ["off"] */
+
 import { expect } from 'chai';
 import tinycolor from 'tinycolor2';
 import ColorSort from '../src/index';

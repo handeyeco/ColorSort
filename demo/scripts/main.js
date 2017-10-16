@@ -1,5 +1,8 @@
-let sortButton = document.getElementById('sort-button');
-let downloadButton = document.getElementById('download-button');
+/* global ColorSort  */
+/* eslint-env browser */
+
+const sortButton = document.getElementById('sort-button');
+const downloadButton = document.getElementById('download-button');
 let colors;
 
 sortButton.addEventListener('click', sort);
@@ -14,18 +17,18 @@ function sort() {
   const criteria = [
     { sort: fe['primary-sort'].value, asc: fe['primary-asc'].checked },
     { sort: fe['secondary-sort'].value, asc: fe['secondary-asc'].checked },
-    { sort: fe['tertiary-sort'].value, asc: fe['tertiary-asc'].checked }
+    { sort: fe['tertiary-sort'].value, asc: fe['tertiary-asc'].checked },
   ];
 
-  colors = fe['dedup'].checked
+  colors = fe.dedup.checked
     ? new ColorSort(input).removeDuplicates().sort(criteria)
     : new ColorSort(input).sort(criteria);
 
   fe['color-input'].value = colors.formattedValues(format).join(', ').toUpperCase();
 
   const boxSize = determineSwatchSize(colors.entries.length);
-  const colorElements = colors.entries.map(elem => {
-    return `<div class="swatch" style="background: ${elem.toHexString()}; width: ${boxSize[0]}%; height: ${boxSize[1]}vh" title="${elem.toString(format).toUpperCase()}"></div>`
+  const colorElements = colors.entries.map((elem) => {
+    return `<div class="swatch" style="background: ${elem.toHexString()}; width: ${boxSize[0]}%; height: ${boxSize[1]}vh" title="${elem.toString(format).toUpperCase()}"></div>`;
   }).join('');
 
   swatchContainer.innerHTML = colorElements;
@@ -33,8 +36,8 @@ function sort() {
 
 function download() {
   sort();
-  let result = {};
-  result.colors = colors.entries.map(elem => {
+  const result = {};
+  result.colors = colors.entries.map((elem) => {
     return {
       rgb: elem.toRgbString,
       hsl: elem.toHslString,
@@ -46,17 +49,17 @@ function download() {
       hue: elem.hue(),
       saturation: elem.saturation(),
       lightness: elem.lightness(),
-    }
+    };
   });
 
   result.hexArray = colors.formattedValues('hex6');
   result.rgbArray = colors.formattedValues('rgb');
   result.hslArray = colors.formattedValues('hsl');
 
-  const downloadFile = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
+  const downloadFile = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(result))}`;
   const downloadLink = document.createElement('a');
-  downloadLink.setAttribute("href", downloadFile);
-  downloadLink.setAttribute("download", "sorted-colors.json");
+  downloadLink.setAttribute('href', downloadFile);
+  downloadLink.setAttribute('download', 'sorted-colors.json');
   downloadLink.click();
   downloadLink.remove();
 }
@@ -69,11 +72,11 @@ function determineSwatchSize(count) {
 
   while (size * (count / cubePerLine) > windowHeight) {
     cubePerLine++;
-    size = windowWidth / cubePerLine - 10;
+    size = (windowWidth / cubePerLine) - 10;
   }
 
   return [
     100 / cubePerLine,
-    100 / Math.ceil(count / cubePerLine)
+    100 / Math.ceil(count / cubePerLine),
   ];
 }
