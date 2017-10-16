@@ -2,7 +2,7 @@
   "name": "colorsort",
   "version": "1.0.0",
   "description": "Takes blobs of text, sifts through for colors, and sorts them!",
-  "main": "index.js",
+  "main": "./dist/colorsort.js",
   "scripts": {
     "build:min": "webpack -p && mv ./dist/colorsort.js ./dist/colorsort.min.js",
     "build": "npm run lint && npm run test && npm run build:min && webpack",
