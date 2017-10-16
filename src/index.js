@@ -6,7 +6,7 @@ import tinycolor from 'tinycolor2';
  * @param {string} text - text to parse for colors
  * @returns {Object.<ColorSort>} - returns new instance of ColorSort object
  */
-function ColorSort(text) {
+function ColorSort(text = '') {
   // Parse text for pieces that might be rgba?, hsla?, or hex colors
   let entries = text.match(/(rgba?\(.*?\))|(hsla?\(.*?\))|(#[A-F0-9]{3,8})/gi) || [];
   // Create new array from findings
@@ -44,12 +44,14 @@ ColorSort.prototype.sort = function(options = [{ sort: 'red' }, { sort: 'green' 
     let result = 0;
 
     // Iterate through sort criteria
-    for (let o of options) {
+    for (let o in options) {
       // Check for valid options
-      if (elem1[o.sort] && elem2[o.sort]) {
+      if (elem1[options[o].sort] && elem2[options[o].sort]) {
         // Sort either ascending or descending
-        result = o.asc ? elem1[o.sort]() - elem2[o.sort]() : elem2[o.sort]() - elem1[o.sort]();
-        // Break when we've found somehting to sort by
+        result = options[o].asc ?
+          elem1[options[o].sort]() - elem2[options[o].sort]() :
+          elem2[options[o].sort]() - elem1[options[o].sort]();
+        // Break when we've found something to sort by
         if (result) { break; }
       }
     }

@@ -86,34 +86,129 @@ var _tinycolor2 = _interopRequireDefault(_tinycolor);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ColorSort(text) {
-  var collection = text.match(/(rgba?\(.*?\))|(hsla?\(.*?\))|(#[A-F0-9]{3,8})/gi);
-  collection = collection.reduce(function (accum, elem) {
+/**
+ * Initialize ColorSort options
+ * @constructor
+ * @param {string} text - text to parse for colors
+ * @returns {Object.<ColorSort>} - returns new instance of ColorSort object
+ */
+function ColorSort() {
+  var _this = this;
+
+  var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+  // Parse text for pieces that might be rgba?, hsla?, or hex colors
+  var entries = text.match(/(rgba?\(.*?\))|(hsla?\(.*?\))|(#[A-F0-9]{3,8})/gi) || [];
+  // Create new array from findings
+  entries = entries.reduce(function (accum, elem) {
+    // Convert color to TinyColor object
     elem = (0, _tinycolor2.default)(elem);
     if (elem.isValid()) {
-      accum.push(elem);
+      // If it's a valid color, add methods we need for sorting and add object to array
+      accum.push(_this._augmentTinyColorMethods(elem));
     }
     return accum;
   }, []);
 
-  this.collection = collection;
+  this.entries = entries;
   return this;
 }
 
+/**
+ * Sort color entries based on a set of criteria
+ * @param {(string|array)} options - sorting criteria.
+ * If {string} , must be the name of a function in ColorSort.prototype._augmentTinyColorMethods
+ * If {array} , must be an array of objects in this format:
+ * [{ sort: {string} , asc: {boolean} }]
+ * @returns {Object.<ColorSort>} - returns updated instance of ColorSort object
+ */
 ColorSort.prototype.sort = function () {
-  collection = this.collection.sort(function (elem1, elem2) {
-    return elem1._r - elem2._r;
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [{ sort: 'red' }, { sort: 'green' }, { sort: 'blue' }];
+
+  // Convert string input to array format
+  if (typeof options === 'string') {
+    options = [{ sort: options }];
+  }
+
+  this.entries = this.entries.sort(function (elem1, elem2) {
+    var result = 0;
+
+    // Iterate through sort criteria
+    for (var o in options) {
+      // Check for valid options
+      if (elem1[options[o].sort] && elem2[options[o].sort]) {
+        // Sort either ascending or descending
+        result = options[o].asc ? elem1[options[o].sort]() - elem2[options[o].sort]() : elem2[options[o].sort]() - elem1[options[o].sort]();
+        // Break when we've found something to sort by
+        if (result) {
+          break;
+        }
+      }
+    }
+
+    return result;
   });
 
   return this;
 };
 
+/**
+ * Return color entries as an array of strings in given format
+ * @param {string} format - format of color output.
+ * Formats are determined by TinyColor: https://github.com/bgrins/TinyColor#toString
+ * @returns {string[]} - returns array of colors as strings
+ */
 ColorSort.prototype.formattedValues = function () {
   var format = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'hex6';
 
-  return this.collection.map(function (elem) {
+  return this.entries.map(function (elem) {
     return elem.toString(format);
   });
+};
+
+/**
+ * Creates a new ColorSort object with duplicate values removed
+ * @returns {Object.<ColorSort>} - returns new ColorSort object
+ */
+ColorSort.prototype.removeDuplicates = function () {
+  // Convert array of hex values to a set
+  var set = new Set(this.formattedValues('hex8'));
+  // Convert back to array then string
+  var input = Array.from(set).join();
+
+  // Create new ColorSort object from string
+  return new ColorSort(input);
+};
+
+/**
+ * Adds methods to TinyColor objects we'll need for sorting
+ * @param {Object.<tinycolor>} color - takes an instance of a TinyColor object
+ * @returns {Object.<tinycolor>} - returns TinyColor object with augmented methods
+ */
+ColorSort.prototype._augmentTinyColorMethods = function (color) {
+  color.red = function () {
+    return this._r;
+  };
+  color.green = function () {
+    return this._g;
+  };
+  color.blue = function () {
+    return this._b;
+  };
+  color.alpha = function () {
+    return this._a;
+  };
+  color.hue = function () {
+    return Math.round(this.toHsl().h);
+  };
+  color.saturation = function () {
+    return Math.round(this.toHsl().s * 100);
+  };
+  color.lightness = function () {
+    return Math.round(this.toHsl().l * 100);
+  };
+
+  return color;
 };
 
 module.exports = ColorSort;
