@@ -1,6 +1,6 @@
 {
   "name": "colorsort",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Takes blobs of text, sifts through for colors, and sorts them!",
   "main": "./dist/colorsort.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "author": "Matthew Curtis",
   "license": "MIT",
   "dependencies": {
-    "tinycolor2": "^1.4.1"
+    "tinycolor2": "~1.4.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

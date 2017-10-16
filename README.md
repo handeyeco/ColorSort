@@ -1,6 +1,6 @@
 # ColorSort
 
-ColorSort is a wrapper around the excellent [TinyColor](https://github.com/bgrins/TinyColor) package that allows you to parse arbitrary text for colors and then sort the colors based on several criteria. ColorSort includes TinyColor and the `ColorSort.entries` array is an array of TinyColor objects that have the full functionality of TinyColor!
+ColorSort is a wrapper around the excellent [TinyColor](https://github.com/bgrins/TinyColor) package that allows you to parse arbitrary text for colors and then sort the colors based on several criteria. ColorSort includes TinyColor 1.4 and the `ColorSort.entries` array is an array of TinyColor objects that have the full functionality of TinyColor!
 
 ## Installation
 
@@ -124,21 +124,19 @@ console.log(cs.formattedValues('rgb')); // ["rgba(0, 0, 0, 0.67)"]
 
 ## Augmented TinyColor
 
-In order to simplify sorting, I needed to augment the TinyColor objects with additional methods. I personally think this was a bad practice and am working on an alternative solution, but right now the colors are given these methods:
+In order to simplify sorting, I needed to augment the TinyColor objects with additional methods. I'm open to suggestions regarding best practices when doing this, but right now the TinyColor prototype is given these methods:
 
 ``` Javascript
 
-ColorSort.prototype._augmentTinyColorMethods = function(color) {
-  color.red         = function () { return this._r; };
-  color.green       = function () { return this._g; };
-  color.blue        = function () { return this._b; };
-  color.alpha       = function () { return this._a; };
-  color.hue         = function () { return Math.round(this.toHsl().h); };
-  color.saturation  = function () { return Math.round(this.toHsl().s * 100); };
-  color.lightness   = function () { return Math.round(this.toHsl().l * 100); };
-
-  return color;
-}
+// Augment TinyColor's prototype for ease of sorting
+const proto = tinycolor.prototype;
+proto.red         = function red() { return this._r; };
+proto.green       = function green() { return this._g; };
+proto.blue        = function blue() { return this._b; };
+proto.alpha       = function alpha() { return this._a; };
+proto.hue         = function hue() { return Math.round(this.toHsl().h); };
+proto.saturation  = function saturation() { return Math.round(this.toHsl().s * 100); };
+proto.lightness   = function lightness() { return Math.round(this.toHsl().l * 100); };
 
 ```
 
